@@ -2,13 +2,39 @@
 #include "Error.h"
 #include <boost/filesystem.hpp>
 #include <lua.hpp>
+#include <boost/program_options.hpp>
+#include <iostream>
 
 const std::string RulesetFileName = "base.lua";
 const std::string RulesetNameField = "name";
 
-DungeonEngine::DungeonEngine(std::string baseDir)
+static boost::program_options::variables_map cmd_line_options(int argc, char** argv)
 {
-	mBaseDir = baseDir;
+    using namespace boost::program_options;
+    options_description options_description("Dungeon Engine Options");
+
+    options_description.add_options();
+
+    positional_options_description positional_options_description;
+
+    positional_options_description.add("main", 1);
+
+    variables_map map;
+
+    basic_command_line_parser command_line_parser(argc, const_cast<const char**>(argv));
+    command_line_parser.options(options_description)
+            .positional(positional_options_description);
+
+    store(command_line_parser.run(), map);
+    notify(map);
+
+    std::cout << "Program Options\n";
+    for(auto entry: map)
+    {
+        std::cout << entry->first << ": " << entry->second << "\n";
+    }
+
+    return map;
 }
 
 std::vector<Ruleset> DungeonEngine::getRulesets()
@@ -101,4 +127,8 @@ std::vector<Ruleset> DungeonEngine::getRulesets()
 void DungeonEngine::setErrorListener(ErrorListener* listener)
 {
 	mErrorListener = listener;
+}
+
+DungeonEngine::DungeonEngine(int argc, char **argv){
+
 }

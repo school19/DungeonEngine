@@ -6,3 +6,4 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(lua)
 add_subdirectory(engine)
+add_subdirectory(desktop)

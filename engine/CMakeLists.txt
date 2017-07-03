@@ -12,7 +12,7 @@ add_library(engine
 			DungeonEngine.cpp
 			DungeonEngine.h
 			Ruleset.cpp
-			Ruleset.h OStreamErrorListener.cpp OStreamErrorListener.h)
+			Ruleset.h OStreamErrorListener.cpp OStreamErrorListener.h UiProvider.h UiProvider.cpp UiProviderImpl.h Label.cpp Label.h LabelImpl.h UiProviderImplFactory.h Window.cpp Window.h WindowImpl.h)
 			
 include_directories(engine ${Boost_INCLUDE_DIRS} ../lua)
 link_directories(${Boost_LIBRARY_DIR})
