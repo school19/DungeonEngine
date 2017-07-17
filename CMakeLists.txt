@@ -2,8 +2,13 @@ cmake_minimum_required(VERSION 3.4.1)
 
 project(DungeonEngine C CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(lua)
+find_package(RapidJson REQUIRED)
+
 add_subdirectory(engine)
-add_subdirectory(desktop)
+
+get_cmake_property(_variableNames VARIABLES)
+foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()

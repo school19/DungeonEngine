@@ -1,0 +1,30 @@
+"C:\Program Files\JetBrains\CLion 2017.1.3\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" Z:\Projects\DungeonEngine
+-- The C compiler identification is MSVC 19.10.25017.0
+-- The CXX compiler identification is MSVC 19.10.25017.0
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.10.25017/bin/HostX86/x86/cl.exe
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.10.25017/bin/HostX86/x86/cl.exe -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.10.25017/bin/HostX86/x86/cl.exe
+CMake Error: Unable to open check cache file for write. Z:/Projects/DungeonEngine/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/cmake.check_cache
+CMake Error: Internal CMake error, TryCompile configure of cmake failed
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.10.25017/bin/HostX86/x86/cl.exe -- broken
+CMake Error at C:/Program Files/JetBrains/CLion 2017.1.3/bin/cmake/share/cmake-3.7/Modules/CMakeTestCXXCompiler.cmake:44 (message):
+  The C++ compiler "C:/Program Files (x86)/Microsoft Visual
+  Studio/2017/Community/VC/Tools/MSVC/14.10.25017/bin/HostX86/x86/cl.exe" is
+  not able to compile a simple test program.
+
+  It fails with the following output:
+
+   
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:3 (project)
+
+
+-- Configuring incomplete, errors occurred!
+See also "Z:/Projects/DungeonEngine/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "Z:/Projects/DungeonEngine/cmake-build-debug/CMakeFiles/CMakeError.log".

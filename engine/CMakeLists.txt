@@ -1,21 +1,11 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost REQUIRED filesystem)
-
 add_library(engine
-			SHARED
-			Error.cpp
-			Error.h
-			ErrorListener.h
+			STATIC
+		ErrorListener.h
 			ErrorListener.cpp
-			DungeonEngine.cpp
-			DungeonEngine.h
-			Ruleset.cpp
-			Ruleset.h OStreamErrorListener.cpp OStreamErrorListener.h UiProvider.h UiProvider.cpp UiProviderImpl.h Label.cpp Label.h LabelImpl.h UiProviderImplFactory.h Window.cpp Window.h WindowImpl.h)
+		OStreamErrorListener.cpp OStreamErrorListener.h Race.cpp Race.h Character.cpp Character.h CharacterClass.cpp CharacterClass.h CharacterClassInstance.cpp CharacterClassInstance.h RaceInstance.cpp RaceInstance.h CharacterState.cpp CharacterState.h TokenStream.h Token.cpp Token.h TokenStream.cpp TokenStreamReader.h TokenStreamWriter.h RaceProxy.cpp RaceProxy.h CharacterClassProxy.cpp CharacterClassProxy.h JsonTokenStreamReader.cpp JsonTokenStreamReader.h TokenStreamWriter.cpp Event.cpp Event.h Inventory.cpp Inventory.h ItemEntry.cpp ItemEntry.h Item.cpp Item.h)
 			
-include_directories(engine ${Boost_INCLUDE_DIRS} ../lua)
-link_directories(${Boost_LIBRARY_DIR})
+target_include_directories(engine PUBLIC ${RAPIDJSON_INCLUDE_DIRS})
 
-target_link_libraries(engine ${Boost_LIBRARIES} lualib)
 set_target_properties(engine PROPERTIES LINKER_LANGUAGE CXX)
