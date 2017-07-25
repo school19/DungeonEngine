@@ -4,9 +4,8 @@ project(DungeonEngine C CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_package(RapidJson REQUIRED)
-
 add_subdirectory(engine)
+add_subdirectory(server)
 
 get_cmake_property(_variableNames VARIABLES)
 foreach (_variableName ${_variableNames})
