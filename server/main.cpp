@@ -15,5 +15,4 @@ int main(int argc, const char* argv[])
     tcp::endpoint endpoint(tcp::v4(), 80);
 
     socket.bind(endpoint);
-    socket.async_
 }

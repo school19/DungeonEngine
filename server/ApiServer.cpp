@@ -2,19 +2,19 @@
 // Created by chaz on 7/25/17.
 //
 
-#include "HttpServer.h"
+#include "ApiServer.h"
 #include "HttpConnection.h"
 
 using namespace boost::asio;
 
-HttpServer::HttpServer(io_service &service) :mAcceptor(service, ip::tcp::endpoint(ip::tcp::v4(), 80)){
+ApiServer::ApiServer(io_service &service) :mAcceptor(service, ip::tcp::endpoint(ip::tcp::v4(), 80)){
     this->start_listening();
 }
 
-HttpServer::~HttpServer(){}
+ApiServer::~ApiServer(){}
 
-void HttpServer::start_listening()
+void ApiServer::start_listening()
 {
     std::shared_ptr<HttpConnection> connection = std::make_shared<HttpConnection>(mAcceptor.get_io_service());
-    mAcceptor.async_accept(connection->getSocket(), [connection]())
+    mAcceptor.async_accept(connection->getSocket(), [connection](const boost::system::error_code& code){});
 }

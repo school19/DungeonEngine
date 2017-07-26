@@ -8,10 +8,10 @@
 #include <boost/asio.hpp>
 
 
-class HttpServer {
+class ApiServer {
 public:
-    HttpServer(boost::asio::io_service& service);
-    ~HttpServer(){}
+    ApiServer(boost::asio::io_service& service);
+    ~ApiServer();
 
 private:
     boost::asio::ip::tcp::acceptor mAcceptor;

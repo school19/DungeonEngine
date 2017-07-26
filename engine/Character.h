@@ -8,7 +8,6 @@
 
 #include <memory>
 #include <vector>
-#include <
 
 #include "RaceInstance.h"
 #include "CharacterClassInstance.h"

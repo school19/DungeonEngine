@@ -7,6 +7,7 @@
 
 
 #include <vector>
+#include "ItemEntry.h"
 
 class Inventory {
 public:
@@ -20,7 +21,7 @@ private:
     int mSilver;
     int mCopper;
 
-    std::vector<> mContents;
+    std::vector<ItemEntry> mContents;
 };
 
 
