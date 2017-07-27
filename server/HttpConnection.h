@@ -6,6 +6,8 @@
 #define DUNGEONENGINE_HTTPCONNECTION_H
 
 #include <boost/asio.hpp>
+#include "HttpRequest.h"
+#include "HttpResponse.h"
 
 class HttpConnection {
 public:
@@ -14,8 +16,14 @@ public:
 
     boost::asio::ip::tcp::socket& getSocket();
 
+    std::shared_ptr<HttpRequest> getRequest();
+
+    void writeResponse(const HttpResponse& response);
+
 private:
     boost::asio::ip::tcp::socket mSocket;
+
+    std::shared_ptr<HttpRequest> mRequest;
 };
 
 

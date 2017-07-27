@@ -6,17 +6,25 @@
 #define DUNGEONENGINE_SERVER_H
 
 #include <boost/asio.hpp>
+#include <future>
+#include "Router.h"
 
 
 class ApiServer {
 public:
-    ApiServer(boost::asio::io_service& service);
+    ApiServer(boost::asio::io_service& service, unsigned short port, std::unique_ptr<Router>& router);
     ~ApiServer();
 
 private:
     boost::asio::ip::tcp::acceptor mAcceptor;
+    std::vector<std::future<void>> mFutures;
 
     void start_listening();
+    void cleanup(int timeout);
+
+    std::unique_ptr<Router> mRouter;
+
+    std::mutex mFutureCollectionMutex;
 };
 
 
