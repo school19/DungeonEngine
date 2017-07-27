@@ -13,7 +13,7 @@ void parse_program_args(int argc, const char* argv[], boost::program_options::va
     using namespace boost::program_options;
     options_description description;
     description.add_options()
-            .("port,p", value<unsigned short>()->default_value(80), "Port the server will listen on");
+            ("port,p", value<unsigned short>()->default_value(80), "Port the server will listen on");
 
     store(parse_command_line(argc, argv, description), storage);
     storage.notify();
@@ -27,8 +27,8 @@ int main(int argc, const char* argv[])
     variables_map arguments;
 
     io_service service;
-
-    ApiServer server(service, arguments["port"].as<unsigned short>());
+    std::unique_ptr<Router> router(new Router);
+    ApiServer server(service, arguments["port"].as<unsigned short>(), router);
 
     try{
         service.run();

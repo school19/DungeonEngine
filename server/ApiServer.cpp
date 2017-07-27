@@ -21,8 +21,8 @@ void ApiServer::start_listening()
 {
     std::shared_ptr<HttpConnection> connection = std::make_shared<HttpConnection>(mAcceptor.get_io_service());
     mAcceptor.async_accept(connection->getSocket(), [this, &connection](const boost::system::error_code& code){
-        std::lock_guard guard(mFutureCollectionMutex);
-        mFutures.push_back(std::async(std::launch::async, [&mRouter, &connection](){
+        std::lock_guard<std::mutex> guard(mFutureCollectionMutex);
+        mFutures.push_back(std::async(std::launch::async, [this, &connection](){
             mRouter->route(connection);
         }));
         this->start_listening();
@@ -34,8 +34,8 @@ void ApiServer::start_listening()
 
 void ApiServer::cleanup(int timeout)
 {
-    std::lock_guard guard(mFutureCollectionMutex);
-    auto itr = std::remove_if(mFutures.begin(), mFutures.end(), [](std::future<void>& future)
+    std::lock_guard<std::mutex> guard(mFutureCollectionMutex);
+    auto itr = std::remove_if(mFutures.begin(), mFutures.end(), [timeout](std::future<void>& future)
     {
         try {
             auto result = future.wait_for(std::chrono::seconds(timeout));
