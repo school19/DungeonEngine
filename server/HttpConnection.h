@@ -24,6 +24,8 @@ private:
     boost::asio::ip::tcp::socket mSocket;
 
     std::shared_ptr<HttpRequest> mRequest;
+
+    void parseRequest();
 };
 
 

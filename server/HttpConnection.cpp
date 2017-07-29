@@ -15,3 +15,15 @@ HttpConnection::~HttpConnection() {
 boost::asio::ip::tcp::socket& HttpConnection::getSocket() {
     return mSocket;
 }
+
+std::shared_ptr<HttpRequest> HttpConnection::getRequest() {
+    if(mRequest == nullptr)
+    {
+        parseRequest();
+    }
+    return mRequest;
+}
+
+void HttpConnection::parseRequest() {
+    mRequest = std::make_shared<HttpResponse>();
+}
