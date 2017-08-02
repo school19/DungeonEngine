@@ -4,7 +4,7 @@
 
 #include "HttpConnection.h"
 
-HttpConnection::HttpConnection(boost::asio::io_service &service) : mSocket(service)
+HttpConnection::HttpConnection(boost::asio::ip::tcp::socket&& socket, ConnectionManager& manager, RequestHandler& handler) : mSocket(std::move(socket)), mManager(manager), mHandler(handler)
 {}
 
 HttpConnection::~HttpConnection() {
@@ -12,18 +12,30 @@ HttpConnection::~HttpConnection() {
     mSocket.close();
 }
 
-boost::asio::ip::tcp::socket& HttpConnection::getSocket() {
-    return mSocket;
+void HttpConnection::start()
+{
+    mParser.reset();
+    startRead();
 }
 
-std::shared_ptr<HttpRequest> HttpConnection::getRequest() {
-    if(mRequest == nullptr)
+void HttpConnection::stop()
+{
+    mSocket.close();
+}
+
+void HttpConnection::startRead()
+{
+    auto self(shared_from_this());
+    mSocket.async_read_some(boost::asio::buffer(mBuffer),
+    [this, self](boost::system::error_code ec, std::size_t bytes_transferred)
     {
-        parseRequest();
-    }
-    return mRequest;
-}
-
-void HttpConnection::parseRequest() {
-    mRequest = std::make_shared<HttpResponse>();
+        if(!ec)
+        {
+            RequestParser::ResultType result;
+            auto result_itr = mBuffer.begin();
+            auto end = mBuffer.begin();
+            std::advance(end, bytes_transferred);
+            std::tie(result, result_itr) = mParser.parse(mBuffer.begin(), end);
+        }
+    });
 }

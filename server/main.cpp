@@ -4,7 +4,7 @@
 #include <boost/asio.hpp>
 #include <boost/program_options.hpp>
 #include <iostream>
-#include "ApiServer.h"
+#include "HttpServer.h"
 
 using boost::asio::io_service;
 
@@ -27,8 +27,7 @@ int main(int argc, const char* argv[])
     variables_map arguments;
 
     io_service service;
-    std::unique_ptr<Router> router(new Router);
-    ApiServer server(service, arguments["port"].as<unsigned short>(), router);
+    HttpServer server(service, arguments["port"].as<unsigned short>());
 
     try{
         service.run();

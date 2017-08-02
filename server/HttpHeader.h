@@ -7,21 +7,9 @@
 
 #include <string>
 
-class HttpHeader {
-public:
-    HttpHeader(std::string name, std::string value);
-    ~HttpHeader();
-
-    const std::string &getName() const;
-    void setName(const std::string &name);
-
-    const std::string &getValue() const;
-    void setValue(const std::string &value);
-
-private:
+struct HttpHeader {
     std::string name;
     std::string value;
-
 };
 
 
