@@ -2,10 +2,12 @@
 // Created by Chaz on 7/29/2017.
 //
 
+#include <algorithm>
+#include <sstream>
 #include "RequestParser.h"
 
 RequestParser::RequestParser() {
-    mState = MethodStart;
+    reset();
 }
 
 RequestParser::ResultType RequestParser::consume(char input)
@@ -257,14 +259,38 @@ RequestParser::ResultType RequestParser::consume(char input)
                 return Bad;
             }
         case Newline3:
-            return (input == '\n')?Good:Bad;
+            if(input == '\n')
+            {
+                //Check to see if there's a body to the HTTP request and read until 'Content-Length' octets have been read
+                auto itr = std::find_if(mHeaders.begin(), mHeaders.end(), [](const HttpHeader& header)
+                {
+                    return header.name.find("Content-Length") == header.name.npos;
+                });
+                if(itr != mHeaders.end())
+                {
+                    mState = Body;
+                    std::istringstream stream(itr->value);
+                    if(!(stream >> mContentLength))
+                    {
+                        return Bad;
+                    }
+                    mBody.reserve(mContentLength);
+                    return Indeterminate;
+                }
+                else{
+                    return Good;
+                }
+            }
+        case Body:
+            mBody.push_back(input);
+            mBody.size() < mContentLength ? Indeterminate : Good;
         default:
             return Bad;
     }
 }
 
 std::shared_ptr<HttpRequest> RequestParser::getRequest() {
-    std::shared_ptr<HttpRequest> request = std::make_shared<HttpRequest>(method_from_string(mTmpMethod), mUri, std::make_pair(mMajorVersion, mMinorVersion));
+    std::shared_ptr<HttpRequest> request = std::make_shared<HttpRequest>(method_from_string(mTmpMethod), std::move(mUri), std::make_pair(mMajorVersion, mMinorVersion));
     for(auto& header : mHeaders)
     {
         request->addHeader(header);
@@ -346,6 +372,8 @@ void RequestParser::reset()
     mHeaders.clear();
     mMajorVersion = 0;
     mMinorVersion = 0;
+    mContentLength = 0;
     mTmpMethod.clear();
     mState = MethodStart;
+    mBody.clear();
 }

@@ -18,7 +18,7 @@ public:
     enum ResultType {Good, Bad, Indeterminate};
 
     template <typename InputIterator>
-    std::tuple<ResultType, InputIterator> parse( InputIterator begin, InputIterator end)
+    std::tuple<ResultType, InputIterator> parse(InputIterator begin, InputIterator end)
     {
         while(begin != end)
         {
@@ -61,7 +61,8 @@ private:
         SpaceBeforeHeaderValue,
         HeaderValue,
         Newline2,
-        Newline3
+        Newline3,
+        Body
     };
 
     State mState;
@@ -69,6 +70,8 @@ private:
     std::string mTmpMethod;
     std::string mUri;
     std::vector<HttpHeader> mHeaders;
+    std::vector<char> mBody;
+    int mContentLength;
     int mMajorVersion;
     int mMinorVersion;
 };

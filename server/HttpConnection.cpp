@@ -4,7 +4,7 @@
 
 #include "HttpConnection.h"
 
-HttpConnection::HttpConnection(boost::asio::ip::tcp::socket&& socket, ConnectionManager& manager, RequestHandler& handler) : mSocket(std::move(socket)), mManager(manager), mHandler(handler)
+HttpConnection::HttpConnection(boost::asio::ip::tcp::socket&& socket, ConnectionManager& manager, Router& handler) : mSocket(std::move(socket)), mManager(manager), mRouter(handler)
 {}
 
 HttpConnection::~HttpConnection() {

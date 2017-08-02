@@ -27,7 +27,7 @@ public:
     HttpRequest(HttpMethod method, std::string&& uri, std::pair<int,int>&& version);
     HttpRequest(const HttpRequest&) = default;
     HttpRequest(HttpRequest&&) = default;
-    ~HttpRequest() = delete;
+    ~HttpRequest() = default;
 
     void addHeader(HttpHeader& header);
     HttpHeader getHeaderByName(std::string name);

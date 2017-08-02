@@ -11,10 +11,11 @@
 #include "ConnectionManager.h"
 #include "RequestHandler.h"
 #include "RequestParser.h"
+#include "Router.h"
 
 class HttpConnection : public std::enable_shared_from_this<HttpConnection> {
 public:
-    HttpConnection(boost::asio::ip::tcp::socket&& socket, ConnectionManager& manager, RequestHandler& handler);
+    HttpConnection(boost::asio::ip::tcp::socket&& socket, ConnectionManager& manager, Router& handler);
     ~HttpConnection();
 
     void start();
@@ -23,14 +24,14 @@ public:
 private:
     boost::asio::ip::tcp::socket mSocket;
     std::shared_ptr<HttpRequest> mRequest;
-    HttpResponse mResponse;
+    std::shared_ptr<HttpResponse> mResponse;
     RequestParser mParser;
 
     std::array<char, 8192> mBuffer;
 
 
     ConnectionManager& mManager;
-    RequestHandler& mHandler;
+    Router& mRouter;
 
     void startRead();
 };

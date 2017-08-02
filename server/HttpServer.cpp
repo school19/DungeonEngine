@@ -8,7 +8,7 @@
 
 using namespace boost::asio;
 
-HttpServer::HttpServer(io_service &service, unsigned short port) :mAcceptor(service, ip::tcp::endpoint(ip::tcp::v4(), port)), mSignals(service), mSocket(service){
+HttpServer::HttpServer(io_service &service, unsigned short port, std::shared_ptr<Router> router) :mAcceptor(service, ip::tcp::endpoint(ip::tcp::v4(), port)), mSignals(service), mSocket(service), mRouter(router){
     mSignals.add(SIGINT);
     mSignals.add(SIGTERM);
 #ifdef SIGQUIT
@@ -33,7 +33,7 @@ void HttpServer::do_accept()
         }
 
         if(!ec) {
-            mManager.start(std::make_shared<HttpConnection(std::move(mSocket), mManager, ))
+            mManager.start(std::make_shared<HttpConnection>(std::move(mSocket), mManager, ));
         }
         this->do_accept();
     });
@@ -43,6 +43,7 @@ void HttpServer::do_signal_await() {
     mSignals.async_wait(
             [this](boost::system::error_code ec, int signo)
                         {
-                           mAcceptor.close();
+                            mAcceptor.close();
+                            mManager.stopAll();
                         });
 }

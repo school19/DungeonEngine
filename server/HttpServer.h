@@ -8,16 +8,18 @@
 #include <boost/asio.hpp>
 #include <future>
 #include "ConnectionManager.h"
+#include "Router.h"
 
 
 class HttpServer {
 public:
-    HttpServer(boost::asio::io_service& service, unsigned short port);
+    HttpServer(boost::asio::io_service& service, unsigned short port, std::shared_ptr<Router> router);
     ~HttpServer();
 
 private:
     boost::asio::ip::tcp::acceptor mAcceptor;
     boost::asio::signal_set mSignals;
+    std::shared_ptr<Router> mRouter;
     ConnectionManager mManager;
 
     boost::asio::ip::tcp::socket mSocket;
