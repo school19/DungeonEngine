@@ -3,17 +3,19 @@
 //
 #include <boost/asio.hpp>
 #include <boost/program_options.hpp>
-#include <iostream>
-#include "HttpServer.h"
+#include "server.h"
 
-using boost::asio::io_service;
+using namespace boost::asio;
+using namespace boost::asio::ip;
+using namespace boost::program_options;
 
-void parse_program_args(int argc, const char* argv[], boost::program_options::variables_map& storage)
+void parse_program_args(int argc, const char* argv[], variables_map& storage)
 {
     using namespace boost::program_options;
     options_description description;
     description.add_options()
-            ("port,p", value<unsigned short>()->default_value(80), "Port the server will listen on");
+            ("port,p", value<unsigned short>()->default_value(80), "Port the server will listen on")
+            ("threads,t", value<unsigned int>()->default_value(std::thread::hardware_concurrency()), "Number of threads to run for the server");
 
     store(parse_command_line(argc, argv, description), storage);
     storage.notify();
@@ -21,22 +23,14 @@ void parse_program_args(int argc, const char* argv[], boost::program_options::va
 
 int main(int argc, const char* argv[])
 {
-    using namespace boost::asio::ip;
-    using namespace boost::program_options;
 
-    variables_map arguments;
+    variables_map args;
+    parse_program_args(argc, argv, args);
 
     io_service service;
-    HttpServer server(service, arguments["port"].as<unsigned short>());
 
-    try{
-        service.run();
-    }
-    catch(std::exception& exception)
-    {
-        std::cerr << exception.what() << std::endl;
-        return 1;
-    }
+    server s(service, args["port"].as<unsigned short>(), args["threads"].as<unsigned int>());
+    s.run();
 
     return 0;
 }

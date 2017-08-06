@@ -1,4 +1,4 @@
-set(SERVER_SOURCES main.cpp HttpConnection.cpp HttpConnection.h HttpServer.cpp HttpServer.h HttpHeader.h HttpRequest.h HttpResponse.h ConnectionManager.cpp ConnectionManager.h RequestParser.cpp RequestParser.h HttpRequest.cpp Router.cpp Router.h Route.cpp Route.h)
+set(SERVER_SOURCES main.cpp server.cpp server.h router.cpp router.h)
 
 find_package(Boost REQUIRED system program_options iostreams)
 
