@@ -1,4 +1,4 @@
-set(SERVER_SOURCES main.cpp server.cpp server.h router.cpp router.h)
+set(SERVER_SOURCES main.cpp server.cpp server.h router.h utility.h)
 
 find_package(Boost REQUIRED system program_options iostreams)
 
@@ -11,5 +11,5 @@ target_link_libraries(server ${Boost_LIBRARIES})
 if(POSIX)
     target_link_libraries(server pthread)
 elseif(WIN32)
-    add_definitions(-DBOOST_ALL_NO_LIB)
+    add_definitions(-DBOOST_ALL_NO_LIB -DBOOST_ALL_DYN_LINK)
 endif()

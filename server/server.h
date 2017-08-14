@@ -6,30 +6,32 @@
 #define DUNGEONENGINE_SERVER_H
 
 #include <boost/asio.hpp>
+#include <boost/beast.hpp>
 #include <thread>
+namespace api {
+    class server {
+    public:
+        server(boost::asio::io_service &service, unsigned short port, int threads);
 
-class server {
-public:
-    server(boost::asio::io_service& service, unsigned short port, int threads);
-    ~server();
+        ~server();
 
-    void run();
+        void run();
 
-private:
-    void do_accept();
+    private:
+        void do_accept();
 
-    void async_await();
+        void async_await();
 
-    boost::asio::io_service& service;
+        boost::asio::io_service &service;
 
-    boost::asio::signal_set signal_set;
+        boost::asio::signal_set signal_set;
 
-    boost::asio::ip::tcp::acceptor acceptor;
+        boost::asio::ip::tcp::acceptor acceptor;
 
-    boost::asio::ip::tcp::socket socket;
+        boost::asio::ip::tcp::socket socket;
 
-    std::vector<std::thread> threads;
-};
-
+        std::vector<std::thread> threads;
+    };
+}
 
 #endif //DUNGEONENGINE_SERVER_H
