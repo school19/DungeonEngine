@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-add_library(engine
+add_library(core
 			STATIC
 		ErrorListener.h
 			ErrorListener.cpp
