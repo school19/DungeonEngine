@@ -14,6 +14,8 @@
 #include <type_traits>
 #include "utility.h"
 
+using namespace std::string_literals;
+
 namespace api
 {
     namespace detail {
@@ -75,6 +77,9 @@ namespace api
         private:
             param_type _p;
         };
+
+        template <typename T>
+
 
         class trie {
         public:

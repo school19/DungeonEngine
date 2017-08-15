@@ -47,12 +47,12 @@ namespace api
 
         static value_type from_string(std::string& str)
         {
-            static_assert(false, "I don't know how to parse this type!");
+            return boost::lexical_cast<value_type>(str);
         }
 
         static std::string to_string(value_type t)
         {
-            return std::to_string(t);
+            return boost::lexical_cast<std::string>(t);
         }
 
         static int tag()
@@ -108,11 +108,6 @@ namespace api
     template <>
     struct parameter_t<double> : public base_parameter_t<parameter_t<double>>
     {
-        static value_type from_string(std::string& str)
-        {
-            return std::stod(str);
-        }
-
         static bool validate(std::string& str)
         {
             return false; //TODO
@@ -127,16 +122,6 @@ namespace api
     template <>
     struct parameter_t<std::string> : public base_parameter_t<parameter_t<std::string>>
     {
-        static value_type from_string(std::string& str)
-        {
-            return str;
-        }
-
-        static std::string to_string(value_type t)
-        {
-            return t;
-        }
-
         static bool validate(std::string& str)
         {
             return true;
