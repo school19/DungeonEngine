@@ -4,7 +4,7 @@
 
 #include "server.h"
 
-namespace api {
+namespace core {
     server::server(boost::asio::io_service &service, unsigned short port, int threads) : service(service),
                                                                                          socket(service),
                                                                                          acceptor(service),

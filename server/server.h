@@ -8,7 +8,8 @@
 #include <boost/asio.hpp>
 #include <boost/beast.hpp>
 #include <thread>
-namespace api {
+
+namespace core {
     class server {
     public:
         server(boost::asio::io_service &service, unsigned short port, int threads);

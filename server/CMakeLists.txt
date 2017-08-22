@@ -1,4 +1,4 @@
-set(SERVER_SOURCES main.cpp server.cpp server.h router.h utility.h test/main.cpp test/router.cpp)
+set(SERVER_SOURCES main.cpp server.cpp server.h test/main.cpp test/router.cpp)
 
 find_package(Boost REQUIRED system program_options iostreams)
 

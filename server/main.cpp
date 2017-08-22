@@ -4,7 +4,6 @@
 #include <boost/asio.hpp>
 #include <boost/program_options.hpp>
 #include "server.h"
-#include "utility.h"
 
 using namespace boost::asio;
 using namespace boost::asio::ip;
@@ -31,7 +30,7 @@ int main(int argc, const char* argv[])
 
     io_service service;
 
-    api::server s(service, args["port"].as<unsigned short>(), args["threads"].as<unsigned int>());
+    core::server s(service, args["port"].as<unsigned short>(), args["threads"].as<unsigned int>());
     s.run();
 
     return 0;

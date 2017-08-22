@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 3.4.1)
 
 add_library(core
 			STATIC
-		ErrorListener.h
-			ErrorListener.cpp
-		OStreamErrorListener.cpp OStreamErrorListener.h Race.cpp Race.h Character.cpp Character.h CharacterClass.cpp CharacterClass.h CharacterClassInstance.cpp CharacterClassInstance.h RaceInstance.cpp RaceInstance.h CharacterState.cpp CharacterState.h RaceProxy.cpp RaceProxy.h CharacterClassProxy.cpp CharacterClassProxy.h Event.cpp Event.h Inventory.cpp Inventory.h ItemEntry.cpp ItemEntry.h Item.cpp Item.h)
+		PlayerCharacter.cpp PlayerCharacter.h Spell.cpp Spell.h)
 			
 target_include_directories(core PUBLIC ${RAPIDJSON_INCLUDE_DIRS})
 
