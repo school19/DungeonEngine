@@ -1,0 +1,14 @@
+//
+// Created by Chaz on 8/25/2017.
+//
+
+#ifndef DUNGEONENGINE_ENTITYOPERATION_H
+#define DUNGEONENGINE_ENTITYOPERATION_H
+
+
+class EntityOperation {
+
+};
+
+
+#endif //DUNGEONENGINE_ENTITYOPERATION_H

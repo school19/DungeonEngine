@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4.1)
 
 add_library(core
 			STATIC
-		PlayerCharacter.cpp PlayerCharacter.h Spell.cpp Spell.h)
+		Spell.cpp Spell.h Entity.cpp Entity.h EntityComponent.h HealthComponent.cpp HealthComponent.h EntityOperation.cpp EntityOperation.h)
 			
 target_include_directories(core PUBLIC ${RAPIDJSON_INCLUDE_DIRS})
 
