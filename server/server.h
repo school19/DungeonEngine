@@ -6,7 +6,6 @@
 #define DUNGEONENGINE_SERVER_H
 
 #include <boost/asio.hpp>
-#include <boost/beast.hpp>
 #include <thread>
 
 namespace core {
