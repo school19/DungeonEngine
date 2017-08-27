@@ -7,8 +7,12 @@
 
 #include <memory>
 #include <vector>
+#include <typeinfo>
+#include <typeindex>
+#include <unordered_map>
 
 #include "EntityComponent.h"
+
 
 class Entity {
 public:
@@ -19,7 +23,7 @@ public:
     void removeComponent(std::shared_ptr<EntityComponent>& component);
 
 private:
-    std::vector<std::shared_ptr<EntityComponent>> mComponents;
+    std::unordered_map<std::type_index, std::shared_ptr<EntityComponent>> mComponents;
 };
 
 
