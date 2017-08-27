@@ -11,6 +11,14 @@
 class HealthComponent: public EntityComponent {
 public:
 
+    int getMaxHealth() const;
+
+    void setMaxHealth(int mMaxHealth);
+
+    int getCurrentHealth() const;
+
+    void setCurrentHealth(int currentHealth);
+
 private:
     int mMaxHealth;
     int mCurrentHealth;

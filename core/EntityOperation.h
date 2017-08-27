@@ -6,8 +6,14 @@
 #define DUNGEONENGINE_ENTITYOPERATION_H
 
 
-class EntityOperation {
+#include "Entity.h"
 
+class EntityOperation {
+public:
+    EntityOperation();
+    virtual ~EntityOperation();
+
+    virtual void apply(std::shared_ptr<Entity> & entity) = 0;
 };
 
 
