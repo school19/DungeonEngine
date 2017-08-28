@@ -4,6 +4,7 @@
 
 
 #include "Entity.h"
+#include "Error.h"
 
 Entity::Entity()
 {}
@@ -12,19 +13,21 @@ Entity::~Entity()
 {}
 
 void Entity::addComponent(std::shared_ptr<EntityComponent> &component) {
-    auto itr = mComponents.find(std::type_index(typeid(*component)));
+    const std::type_index info(typeid(*component));
+    auto itr = mComponents.find(std::type_index(info));
     if(itr != mComponents.end())
     {
-        //There's already a component of this type.
-        //TODO: Decide if this is an error or not.
+        BOOST_THROW_EXCEPTION(DuplicateComponent() << ComponentName(info.name()));
     }
-    mComponents.insert({std::type_index(typeid(*component)), component});
+    mComponents.insert({info, component});
 }
 
 void Entity::removeComponent(std::shared_ptr<EntityComponent> &component) {
+    const std::type_index info(typeid(*component));
     auto itr = mComponents.find(std::type_index(typeid(*component)));
-    if(itr != mComponents.end())
+    if(itr == mComponents.end())
     {
-        mComponents.erase(itr);
+        BOOST_THROW_EXCEPTION(ComponentNotFound() << ComponentName(info.name()));
     }
+    mComponents.erase(itr);
 }

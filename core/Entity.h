@@ -12,6 +12,7 @@
 #include <unordered_map>
 
 #include "EntityComponent.h"
+#include "Error.h"
 
 
 class Entity {
@@ -21,6 +22,17 @@ public:
 
     void addComponent(std::shared_ptr<EntityComponent>& component);
     void removeComponent(std::shared_ptr<EntityComponent>& component);
+
+    template <typename Component>
+    std::shared_ptr<Component> get()
+    {
+        const std::type_index index(typeid(Component));
+        auto itr = mComponents.find(index);
+        if(itr == mComponents.end())
+        {
+            BOOST_THROW_EXCEPTION(ComponentNotFound() << ComponentName(index.name()));
+        }
+    }
 
 private:
     std::unordered_map<std::type_index, std::shared_ptr<EntityComponent>> mComponents;
