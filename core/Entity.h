@@ -14,29 +14,55 @@
 #include "EntityComponent.h"
 #include "Error.h"
 
+#include <iostream>
 
-class Entity {
-public:
-    Entity();
-    ~Entity();
+namespace core{
+    namespace entity{
+        class Entity {
+        public:
+            Entity();
+            ~Entity();
 
-    void addComponent(std::shared_ptr<EntityComponent>& component);
-    void removeComponent(std::shared_ptr<EntityComponent>& component);
+            /** @brief adds a component to the entity
+             *
+             * @param component the component to add to the entity
+             *
+             * @throws DuplicateComponent when a component of the same type is attempted to be added
+             */
+            void addComponent(std::shared_ptr<EntityComponent>& component);
 
-    template <typename Component>
-    std::shared_ptr<Component> get()
-    {
-        const std::type_index index(typeid(Component));
-        auto itr = mComponents.find(index);
-        if(itr == mComponents.end())
-        {
-            BOOST_THROW_EXCEPTION(ComponentNotFound() << ComponentName(index.name()));
-        }
+            /** @brief removes a component from the entity
+             *
+             * @param component the component to remove
+             *
+             * @throws ComponentNotFound if the component does not belong to the entity
+             */
+            void removeComponent(std::shared_ptr<EntityComponent>& component);
+
+            /** @brief gets a component from the entity
+             *
+             * @tparam Component the component type to get
+             * @return a pointer to the component
+             *
+             * @throws ComponentNotFound if a component of type Component is not a part of the entity
+             */
+            template <typename Component>
+            std::shared_ptr<Component> get()
+            {
+                const std::type_index index(typeid(Component));
+                auto itr = mComponents.find(index);
+                if(itr == mComponents.end())
+                {
+                    BOOST_THROW_EXCEPTION(ComponentNotFound() << ComponentType(index));
+                }
+                return std::dynamic_pointer_cast<Component>(itr->second);
+            }
+
+        private:
+            std::unordered_map<std::type_index, std::shared_ptr<EntityComponent>> mComponents;
+        };
     }
-
-private:
-    std::unordered_map<std::type_index, std::shared_ptr<EntityComponent>> mComponents;
-};
+}
 
 
 #endif //DUNGEONENGINE_ENTITY_H

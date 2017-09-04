@@ -6,9 +6,17 @@
 #define DUNGEONENGINE_ENTITYCOMPONENT_H
 
 
-class EntityComponent {
+namespace core{
+    namespace entity{
+        class EntityComponent {
+        protected:
+            EntityComponent() = default;
+        public:
+            virtual ~EntityComponent() = default;
 
-};
+        };
+    }
+}
 
 
 #endif //DUNGEONENGINE_ENTITYCOMPONENT_H

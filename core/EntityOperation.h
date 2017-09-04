@@ -8,13 +8,18 @@
 
 #include "Entity.h"
 
-class EntityOperation {
-public:
-    EntityOperation();
-    virtual ~EntityOperation();
 
-    virtual void apply(std::shared_ptr<Entity> & entity) = 0;
-};
+namespace core{
+    namespace entity{
+        class EntityOperation {
+        public:
+            EntityOperation();
+            virtual ~EntityOperation();
+
+            virtual void apply(std::shared_ptr<Entity> & entity) = 0;
+        };
+    }
+}
 
 
 #endif //DUNGEONENGINE_ENTITYOPERATION_H

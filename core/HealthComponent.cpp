@@ -4,18 +4,24 @@
 
 #include "HealthComponent.h"
 
-int HealthComponent::getMaxHealth() const {
-    return mMaxHealth;
-}
+namespace core {
+    namespace entity {
 
-void HealthComponent::setMaxHealth(int maxHealth) {
-    mMaxHealth = mMaxHealth;
-}
+        int HealthComponent::getMaxHealth() const {
+            return mMaxHealth;
+        }
 
-int HealthComponent::getCurrentHealth() const {
-    return mCurrentHealth;
-}
+        void HealthComponent::setMaxHealth(int maxHealth) {
+            mMaxHealth = mMaxHealth;
+        }
 
-void HealthComponent::setCurrentHealth(int currentHealth) {
-    mCurrentHealth = currentHealth;
+        int HealthComponent::getCurrentHealth() const {
+            return mCurrentHealth;
+        }
+
+        void HealthComponent::setCurrentHealth(int currentHealth) {
+            mCurrentHealth = currentHealth;
+        }
+
+    }
 }

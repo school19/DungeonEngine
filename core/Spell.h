@@ -8,14 +8,18 @@
 
 #include <string>
 
-class Spell {
-public:
-    Spell();
-    ~Spell();
+namespace core {
+    namespace rules {
+        class Spell {
+        public:
+            Spell();
 
-private:
-    std::string mName;
-};
+            ~Spell();
 
+        private:
+            std::string mName;
+        };
+    }
+}
 
 #endif //DUNGEONENGINE_SPELL_H

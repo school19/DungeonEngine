@@ -6,11 +6,17 @@
 #define DUNGEONENGINE_ERROR_H
 #include <boost/exception/all.hpp>
 
-typedef boost::error_info<struct tag_component_name, std::string> ComponentName;
+namespace core {
+    typedef boost::error_info<struct tag_component_name, std::type_index> ComponentType;
 
-struct EntityError : virtual boost::exception, virtual std::exception{};
+    struct EntityError : virtual boost::exception, virtual std::exception {
+    };
 
-struct DuplicateComponent : virtual EntityError{};
-struct ComponentNotFound : virtual EntityError{};
-
+    struct DuplicateComponent : virtual EntityError {
+    };
+    struct ComponentNotFound : virtual EntityError {
+    };
+    struct RequiredComponentMissing : virtual EntityError {
+    };
+}
 #endif //DUNGEONENGINE_ERROR_H
