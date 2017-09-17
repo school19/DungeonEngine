@@ -1,4 +1,4 @@
-set(TEST_SOURCES EntityTest.cpp main.cpp)
+set(TEST_SOURCES EntityTest.cpp main.cpp ../application/main.cpp)
 
 add_executable(dungeon_engine_test ${TEST_SOURCES})
 

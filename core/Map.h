@@ -6,16 +6,17 @@
 #define DUNGEONENGINE_MAP_H
 
 
+#include "Utility.h"
 #include "Entity.h"
 
 namespace core{
     class Map {
     public:
         Map() = default;
-        ~Map() = default;
+        virtual ~Map() = default;
 
     private:
-        std::vector<std::shared_ptr<entity::Entity>> mEntities;
+        utility::Size mSize;
     };
 }
 
